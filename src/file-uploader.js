@@ -1,19 +1,22 @@
-//var ui = SpreadsheetApp.getUi();
-var ui = DocumentApp.getUi();
-
-function onOpen(e){
-    ui.createMenu('サンプル メニュー').addItem('ダイアログ表示', 'showAlert').addToUi();
+// https://keitaoriginal.com/apps-script-file-upload/
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('form')
+      .setSandboxMode(HtmlService.SandboxMode.NATIVE);
+}
+var folderId = "";
+function processForm(formObject) {
+  Logger.log("start processForm");
+  //var formBlob = formObject.files;
+  //Logger.log(formObject.files);
+  Logger.log(formObject.file);
+  //var formBlob = formObject.files;
+  var formBlob = formObject.file;
+  var folder = DriveApp.getFolderById(folderId);
+  var driveFile = folder.createFile(formBlob);
+  Logger.log("end processForm");
+  return driveFile.getUrl();
 }
 
-function showAlert(){
-    var result = ui.alert(
-        'サンプルダイアログ',
-        '処理を続けますか？',
-        ui.ButtonSet.YES_NO);
-
-    if(result == ui.Button.YES){
-        ui.alert('「はい」ボタンが押されました。');
-    }else{
-        ui.alert('「いいえ」ボタンが押されました。');
-    }
-}
+// 複数選択： http://www.skuare.net/test/jMultipleFileUpLoad.html
+// JS で File API を呼び出してファイルを読み取る： https://www.html5rocks.com/ja/tutorials/file/dndfiles/
+// Forms： https://developers.google.com/apps-script/guides/html/communication
