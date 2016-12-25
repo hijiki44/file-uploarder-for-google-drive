@@ -3,7 +3,7 @@ function doGet() {
   return HtmlService.createHtmlOutputFromFile('form')
       .setSandboxMode(HtmlService.SandboxMode.NATIVE);
 }
-var folderId = "";
+var folderId = "0Bw4_TDksW_obck9kYWRNTVlWZ0k";
 function processForm(formObject) {
   Logger.log("start processForm");
   //var formBlob = formObject.files;
